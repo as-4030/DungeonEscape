@@ -1,0 +1,34 @@
+
+jolteonPack.png
+size: 516,1985
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+jolteon1
+  rotate: false
+  xy: 2, 2
+  size: 512, 472
+  orig: 512, 472
+  offset: 0, 0
+  index: -1
+jolteon2
+  rotate: false
+  xy: 2, 476
+  size: 512, 496
+  orig: 512, 496
+  offset: 0, 0
+  index: -1
+jolteon3
+  rotate: false
+  xy: 2, 1478
+  size: 512, 505
+  orig: 512, 505
+  offset: 0, 0
+  index: -1
+jolteon4
+  rotate: false
+  xy: 2, 974
+  size: 512, 502
+  orig: 512, 502
+  offset: 0, 0
+  index: -1
