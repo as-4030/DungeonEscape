@@ -10,16 +10,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Dog extends Animal {
     TextureAtlas atlas;
     Animation<TextureRegion> dogAnimation;
+    boolean alive;
 
     public Dog(float xPosition, float yPosition) {
         super(xPosition, yPosition, 64, 59);
         this.atlas = new TextureAtlas(Gdx.files.internal("jolteonPack.atlas"));
         this.dogAnimation = new Animation<TextureRegion>((1/15f), this.atlas.getRegions(), Animation.PlayMode.LOOP);
+        this.alive = true;
     }
 
     @Override
     public void die() {
-
+        this.alive = false;
     }
 
     @Override

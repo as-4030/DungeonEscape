@@ -91,6 +91,10 @@ public class Escape extends ApplicationAdapter {
 			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dogX, this.dogY, -64, 59);
 		}
 
+		if (((Math.abs(this.dogY - this.rockOne.rockY) < 30) || (Math.abs(this.dogY - this.rockTwo.rockY) < 30)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 5) || (Math.abs(this.dogX - this.rockTwo.rockX) < 5))) {
+			System.out.println("He got hit!");
+		}
+
 		this.batch.end();
 	}
 	
