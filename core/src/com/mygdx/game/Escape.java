@@ -100,11 +100,27 @@ public class Escape extends ApplicationAdapter {
 			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dogX, this.dogY, -64, 59);
 		}
 
-		if (((Math.abs(this.dogY - this.rockOne.rockY) < 30) || (Math.abs(this.dogY - this.rockTwo.rockY) < 30)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 5) || (Math.abs(this.dogX - this.rockTwo.rockX) < 5))) {
+		if (((Math.abs(this.dogY - this.rockOne.rockY) < 35) || (Math.abs(this.dogY - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 10) || (Math.abs(this.dogX - this.rockTwo.rockX) < 10))) {
 			System.out.println("He got hit!");
+			this.dogX = 2000;
+			this.dogY = 2000;
 		}
 
+		gameOver(this.timePassed);
+
 		this.batch.end();
+	}
+
+	public void gameOver(float timePassed) {
+		if (this.dogX > 1500) {
+			this.batch.draw(this.gameOverAnimation.getKeyFrame(timePassed, true), -250, -150, 500, 350);
+		}
+	}
+
+	public void exitGame(float timePassed) {
+		if (timePassed % 2 == 0) {
+			Gdx.app.exit();
+		}
 	}
 	
 	@Override
