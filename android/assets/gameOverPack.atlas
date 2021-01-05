@@ -1,0 +1,62 @@
+
+gameOverPack.png
+size: 2048,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0001
+  rotate: false
+  xy: 434, 2
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0002
+  rotate: false
+  xy: 2, 254
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0003
+  rotate: false
+  xy: 866, 2
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0004
+  rotate: false
+  xy: 434, 254
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0005
+  rotate: false
+  xy: 1298, 2
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0006
+  rotate: false
+  xy: 866, 254
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0007
+  rotate: false
+  xy: 2, 2
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1
+0008
+  rotate: false
+  xy: 1298, 254
+  size: 430, 250
+  orig: 430, 250
+  offset: 0, 0
+  index: -1

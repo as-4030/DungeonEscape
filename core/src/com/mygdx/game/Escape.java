@@ -7,7 +7,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Escape extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -27,6 +30,9 @@ public class Escape extends ApplicationAdapter {
 	private Rock rockTwo;
 
 	boolean lookingLeft = false;
+
+	TextureAtlas gameOverAtlas;
+	Animation<TextureRegion> gameOverAnimation;
 	
 	@Override
 	public void create() {
@@ -46,6 +52,9 @@ public class Escape extends ApplicationAdapter {
 
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
 		this.music.setLooping(true);
+
+		this.gameOverAtlas = new TextureAtlas(Gdx.files.internal("gameOverPack.atlas"));
+		this.gameOverAnimation = new Animation<TextureRegion>((1/15f), this.gameOverAtlas.getRegions(), Animation.PlayMode.LOOP);
 	}
 
 	@Override
