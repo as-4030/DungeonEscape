@@ -21,6 +21,7 @@ public class Escape extends ApplicationAdapter {
 	private Dog dog;
 	private float dogX;
 	private float dogY;
+
 	private Music music;
 
 	private Golem golemOne;
@@ -101,7 +102,6 @@ public class Escape extends ApplicationAdapter {
 		}
 
 		if (((Math.abs(this.dogY - this.rockOne.rockY) < 35) || (Math.abs(this.dogY - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 10) || (Math.abs(this.dogX - this.rockTwo.rockX) < 10))) {
-			System.out.println("He got hit!");
 			this.dogX = 2000;
 			this.dogY = 2000;
 		}
@@ -114,6 +114,8 @@ public class Escape extends ApplicationAdapter {
 	public void gameOver(float timePassed) {
 		if (this.dogX > 1500) {
 			this.batch.draw(this.gameOverAnimation.getKeyFrame(timePassed, true), -250, -150, 500, 350);
+			this.dogX = 1750;
+			this.dogY = 1750;
 		}
 	}
 
@@ -128,6 +130,13 @@ public class Escape extends ApplicationAdapter {
 		this.batch.dispose();
 		this.background.dispose();
 		this.dog.atlas.dispose();
+		this.music.dispose();
+		this.gameOverAtlas.dispose();
+		this.dog.atlas.dispose();
+		this.golemOne.golemAtlas.dispose();
+		this.golemTwo.golemAtlas.dispose();
+		this.rockOne.rockAtlas.dispose();
+		this.rockTwo.rockAtlas.dispose();
 	}
 
 	public void physicalMovement(int inputNum) {
