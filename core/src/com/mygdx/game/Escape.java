@@ -32,6 +32,11 @@ public class Escape extends ApplicationAdapter {
 
 	boolean lookingLeft = false;
 
+	private Urchin urchinOne;
+	private Urchin urchinTwo;
+	private Urchin urchinThree;
+	private Urchin urchinFour;
+
 	TextureAtlas gameOverAtlas;
 	Animation<TextureRegion> gameOverAnimation;
 	
@@ -50,6 +55,11 @@ public class Escape extends ApplicationAdapter {
 
 		this.rockOne = new Rock(340, -50);
 		this.rockTwo = new Rock(340, 100);
+
+		this.urchinOne = new Urchin(0, 0);
+		this.urchinTwo = new Urchin(-200, -50);
+		this.urchinThree = new Urchin(375, 40);
+		this.urchinFour = new Urchin(-250, 250);
 
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
 		this.music.setLooping(true);
@@ -89,6 +99,11 @@ public class Escape extends ApplicationAdapter {
 			this.rockTwo.rockX = 340;
 		}
 
+		this.batch.draw(this.urchinOne.getRegion(), this.urchinOne.xPosition, this.urchinOne.yPosition, 40, 40);
+		this.batch.draw(this.urchinTwo.getRegion(), this.urchinTwo.xPosition, this.urchinTwo.yPosition, 40, 40);
+		this.batch.draw(this.urchinThree.getRegion(), this.urchinThree.xPosition, this.urchinThree.yPosition, 40, 40);
+		this.batch.draw(this.urchinFour.getRegion(), this.urchinFour.xPosition, this.urchinFour.yPosition, 40, 40);
+
 		if (moveInput == 3) {
 			this.batch.draw(this.dog.dogAnimation.getKeyFrame(this.timePassed, true), this.dogX - 40, this.dogY, 64, 59);
 			this.lookingLeft = true;
@@ -101,7 +116,27 @@ public class Escape extends ApplicationAdapter {
 			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dogX, this.dogY, -64, 59);
 		}
 
-		if (((Math.abs(this.dogY - this.rockOne.rockY) < 35) || (Math.abs(this.dogY - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 10) || (Math.abs(this.dogX - this.rockTwo.rockX) < 10))) {
+		if (((Math.abs(this.dogY - this.rockOne.rockY) < 35) || (Math.abs(this.dogY - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 8) || (Math.abs(this.dogX - this.rockTwo.rockX) < 8))) {
+			this.dogX = 2000;
+			this.dogY = 2000;
+		}
+
+		if (((Math.abs(this.urchinOne.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinOne.yPosition) < 8))) {
+			this.dogX = 2000;
+			this.dogY = 2000;
+		}
+
+		if (((Math.abs(this.urchinTwo.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinTwo.yPosition) < 8))) {
+			this.dogX = 2000;
+			this.dogY = 2000;
+		}
+
+		if (((Math.abs(this.urchinThree.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinThree.yPosition) < 8))) {
+			this.dogX = 2000;
+			this.dogY = 2000;
+		}
+
+		if (((Math.abs(this.urchinFour.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinFour.yPosition) < 8))) {
 			this.dogX = 2000;
 			this.dogY = 2000;
 		}
@@ -118,12 +153,6 @@ public class Escape extends ApplicationAdapter {
 			this.dogY = 1750;
 		}
 	}
-
-	public void exitGame(float timePassed) {
-		if (timePassed % 2 == 0) {
-			Gdx.app.exit();
-		}
-	}
 	
 	@Override
 	public void dispose() {
@@ -137,6 +166,10 @@ public class Escape extends ApplicationAdapter {
 		this.golemTwo.golemAtlas.dispose();
 		this.rockOne.rockAtlas.dispose();
 		this.rockTwo.rockAtlas.dispose();
+		this.urchinOne.atlas.dispose();
+		this.urchinTwo.atlas.dispose();
+		this.urchinThree.atlas.dispose();
+		this.urchinFour.atlas.dispose();
 	}
 
 	public void physicalMovement(int inputNum) {

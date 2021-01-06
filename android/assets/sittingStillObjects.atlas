@@ -1,0 +1,27 @@
+
+sittingStillObjects.png
+size: 8192,4096
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+banana
+  rotate: false
+  xy: 2, 2
+  size: 500, 345
+  orig: 500, 345
+  offset: 0, 0
+  index: -1
+ladder
+  rotate: false
+  xy: 2, 349
+  size: 2000, 3561
+  orig: 2000, 3561
+  offset: 0, 0
+  index: -1
+urchin2
+  rotate: false
+  xy: 2004, 1605
+  size: 3167, 2305
+  orig: 3167, 2305
+  offset: 0, 0
+  index: -1
