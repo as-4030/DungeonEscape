@@ -15,9 +15,6 @@ public abstract class Animal {
         this.height = height;
     }
 
-//    public abstract int movementInput();
-//
-//    public abstract void physicalMovement(float deltaTime, int inputNum);
 
     public abstract void die();
 

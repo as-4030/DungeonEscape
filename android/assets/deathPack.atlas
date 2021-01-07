@@ -1,0 +1,146 @@
+
+deathPack.png
+size: 4096,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+death0001
+  rotate: false
+  xy: 1930, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0002
+  rotate: false
+  xy: 484, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0003
+  rotate: false
+  xy: 2412, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0004
+  rotate: false
+  xy: 1448, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0005
+  rotate: false
+  xy: 2, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0006
+  rotate: false
+  xy: 1930, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0007
+  rotate: false
+  xy: 966, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0008
+  rotate: false
+  xy: 2, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0009
+  rotate: false
+  xy: 1448, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0010
+  rotate: false
+  xy: 484, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0011
+  rotate: false
+  xy: 2412, 508
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+death0012
+  rotate: false
+  xy: 966, 66
+  size: 480, 440
+  orig: 480, 440
+  offset: 0, 0
+  index: -1
+poof0001
+  rotate: false
+  xy: 3528, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0002
+  rotate: false
+  xy: 2894, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0003
+  rotate: false
+  xy: 2894, 2
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0004
+  rotate: false
+  xy: 3211, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0005
+  rotate: false
+  xy: 2894, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0006
+  rotate: false
+  xy: 3528, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0007
+  rotate: false
+  xy: 3211, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0008
+  rotate: false
+  xy: 3211, 2
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1

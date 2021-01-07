@@ -19,8 +19,6 @@ public class Escape extends ApplicationAdapter {
 	float timePassed = 0.0001f;
 
 	private Dog dog;
-	private float dogX;
-	private float dogY;
 
 	private Music music;
 
@@ -45,10 +43,8 @@ public class Escape extends ApplicationAdapter {
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.batch = new SpriteBatch();
 		this.background = new Texture("background.jpg");
-		
-		this.dogX = -400;
-		this.dogY = -250;
-		this.dog = new Dog(this.dogX, this.dogY);
+
+		this.dog = new Dog(-400, -250);
 
 		this.golemOne = new Golem(340, -50);
 		this.golemTwo = new Golem(340, 100);
@@ -84,6 +80,18 @@ public class Escape extends ApplicationAdapter {
 
 		this.batch.draw(this.background, -1100, -610);
 
+		drawGolems();
+		drawUrchins();
+
+		movingAround(moveInput);
+
+		collisionDetection();
+		gameOverDetector(this.timePassed);
+
+		this.batch.end();
+	}
+
+	public void drawGolems() {
 		this.batch.draw(this.golemOne.golemAnimation.getKeyFrame(this.timePassed, true), 350, -50, 80, 85);
 		this.batch.draw(this.golemTwo.golemAnimation.getKeyFrame(this.timePassed, true), 350, 100, 80, 85);
 
@@ -98,59 +106,61 @@ public class Escape extends ApplicationAdapter {
 		if (this.rockTwo.rockX < -600) {
 			this.rockTwo.rockX = 340;
 		}
-
-		this.batch.draw(this.urchinOne.getRegion(), this.urchinOne.xPosition, this.urchinOne.yPosition, 40, 40);
-		this.batch.draw(this.urchinTwo.getRegion(), this.urchinTwo.xPosition, this.urchinTwo.yPosition, 40, 40);
-		this.batch.draw(this.urchinThree.getRegion(), this.urchinThree.xPosition, this.urchinThree.yPosition, 40, 40);
-		this.batch.draw(this.urchinFour.getRegion(), this.urchinFour.xPosition, this.urchinFour.yPosition, 40, 40);
-
-		if (moveInput == 3) {
-			this.batch.draw(this.dog.dogAnimation.getKeyFrame(this.timePassed, true), this.dogX - 40, this.dogY, 64, 59);
-			this.lookingLeft = true;
-		} else if (!(moveInput == 0)) {
-			this.batch.draw(this.dog.dogAnimation.getKeyFrame(this.timePassed, true), this.dogX, this.dogY, -64, 59);
-			this.lookingLeft = false;
-		} else if ((moveInput == 0) && (this.lookingLeft == true)) {
-			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dogX - 40, this.dogY, 64, 59);
-		} else if ((moveInput == 0) && (this.lookingLeft == false)) {
-			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dogX, this.dogY, -64, 59);
-		}
-
-		if (((Math.abs(this.dogY - this.rockOne.rockY) < 35) || (Math.abs(this.dogY - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dogX - this.rockOne.rockX) < 8) || (Math.abs(this.dogX - this.rockTwo.rockX) < 8))) {
-			this.dogX = 2000;
-			this.dogY = 2000;
-		}
-
-		if (((Math.abs(this.urchinOne.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinOne.yPosition) < 8))) {
-			this.dogX = 2000;
-			this.dogY = 2000;
-		}
-
-		if (((Math.abs(this.urchinTwo.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinTwo.yPosition) < 8))) {
-			this.dogX = 2000;
-			this.dogY = 2000;
-		}
-
-		if (((Math.abs(this.urchinThree.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinThree.yPosition) < 8))) {
-			this.dogX = 2000;
-			this.dogY = 2000;
-		}
-
-		if (((Math.abs(this.urchinFour.xPosition - this.dogX) < 12) && (Math.abs(this.dogY - this.urchinFour.yPosition) < 8))) {
-			this.dogX = 2000;
-			this.dogY = 2000;
-		}
-
-		gameOver(this.timePassed);
-
-		this.batch.end();
 	}
 
-	public void gameOver(float timePassed) {
-		if (this.dogX > 1500) {
+	public void drawUrchins() {
+		this.batch.draw(this.urchinOne.getRegion(), this.urchinOne.xPosition, this.urchinOne.yPosition, 90, 90);
+		this.batch.draw(this.urchinTwo.getRegion(), this.urchinTwo.xPosition, this.urchinTwo.yPosition, 90, 90);
+		this.batch.draw(this.urchinThree.getRegion(), this.urchinThree.xPosition, this.urchinThree.yPosition, 90, 90);
+		this.batch.draw(this.urchinFour.getRegion(), this.urchinFour.xPosition, this.urchinFour.yPosition, 90, 90);
+	}
+
+	public void movingAround(int moveInput) {
+		if (moveInput == 3) {
+			this.batch.draw(this.dog.dogAnimation.getKeyFrame(this.timePassed, true), this.dog.xPosition - 40, this.dog.yPosition, 64, 59);
+			this.lookingLeft = true;
+		} else if (!(moveInput == 0)) {
+			this.batch.draw(this.dog.dogAnimation.getKeyFrame(this.timePassed, true), this.dog.xPosition, this.dog.yPosition, -64, 59);
+			this.lookingLeft = false;
+		} else if ((moveInput == 0) && (this.lookingLeft == true)) {
+			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dog.xPosition - 40, this.dog.yPosition, 64, 59);
+		} else if ((moveInput == 0) && (this.lookingLeft == false)) {
+			this.batch.draw(this.dog.dogAnimation.getKeyFrame(1, true), this.dog.xPosition, this.dog.yPosition, -64, 59);
+		}
+	}
+
+	public void collisionDetection() {
+		if (((Math.abs(this.dog.yPosition - this.rockOne.rockY) < 35) || (Math.abs(this.dog.yPosition - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dog.xPosition - this.rockOne.rockX) < 8) || (Math.abs(this.dog.xPosition - this.rockTwo.rockX) < 8))) {
+			this.dog.xPosition = 2000;
+			this.dog.yPosition = 2000;
+		}
+
+		if (((Math.abs(this.urchinOne.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinOne.yPosition) < 20))) {
+			this.dog.xPosition = 2000;
+			this.dog.yPosition = 2000;
+		}
+
+		if (((Math.abs(this.urchinTwo.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinTwo.yPosition) < 20))) {
+			this.dog.xPosition = 2000;
+			this.dog.yPosition = 2000;
+		}
+
+		if (((Math.abs(this.urchinThree.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinThree.yPosition) < 20))) {
+			this.dog.xPosition = 2000;
+			this.dog.yPosition = 2000;
+		}
+
+		if (((Math.abs(this.urchinFour.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinFour.yPosition) < 20))) {
+			this.dog.xPosition = 2000;
+			this.dog.yPosition = 2000;
+		}
+	}
+
+	public void gameOverDetector(float timePassed) {
+		if (this.dog.xPosition > 1500) {
 			this.batch.draw(this.gameOverAnimation.getKeyFrame(timePassed, true), -250, -150, 500, 350);
-			this.dogX = 1750;
-			this.dogY = 1750;
+			this.dog.xPosition = 1750;
+			this.dog.yPosition = 1750;
 		}
 	}
 	
@@ -174,13 +184,13 @@ public class Escape extends ApplicationAdapter {
 
 	public void physicalMovement(int inputNum) {
 		if (inputNum == 1) {
-			this.dogY = this.dogY + 5;
+			this.dog.yPosition = this.dog.yPosition + 5;
 		} else if (inputNum == 2) {
-			this.dogY = this.dogY - 5;
+			this.dog.yPosition = this.dog.yPosition - 5;
 		} else if (inputNum == 3) {
-			this.dogX = this.dogX - 5;
+			this.dog.xPosition = this.dog.xPosition - 5;
 		} else if (inputNum == 4) {
-			this.dogX = this.dogX + 5;
+			this.dog.xPosition = this.dog.xPosition + 5;
 		}
 	}
 
