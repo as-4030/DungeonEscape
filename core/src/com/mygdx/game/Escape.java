@@ -22,7 +22,8 @@ public class Escape extends ApplicationAdapter {
 	private Float dogDeathX;
 	private Float dogDeathY;
 
-	private Music music;
+	private Music themeMusic;
+	private Music deathMusic;
 
 	private Golem golemOne;
 	private Golem golemTwo;
@@ -67,25 +68,29 @@ public class Escape extends ApplicationAdapter {
 		this.urchinThree = new Urchin(375, 200);
 		this.urchinFour = new Urchin(-250, 250);
 
-		this.music = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
-		this.music.setLooping(true);
+		this.themeMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
+		this.themeMusic.setLooping(true);
+		this.themeMusic.setVolume(0.1f);
+
+		this.deathMusic = Gdx.audio.newMusic(Gdx.files.internal("deathMusic.mp3"));
+		this.deathMusic.setLooping(true);
+		this.deathMusic.setVolume(0.05f);
 
 		this.gameOverAtlas = new TextureAtlas(Gdx.files.internal("gameOverPack.atlas"));
 		this.gameOverAnimation = new Animation<TextureRegion>((1/15f), this.gameOverAtlas.getRegions(), Animation.PlayMode.LOOP);
 
 		this.deathAtlas = new TextureAtlas(Gdx.files.internal("deathPack.atlas"));
-		this.tombstoneAnimation = new Animation<TextureRegion>((1/7f), this.deathAtlas.getRegions(), Animation.PlayMode.NORMAL);
+		this.tombstoneAnimation = new Animation<TextureRegion>((1/4.5f), this.deathAtlas.getRegions(), Animation.PlayMode.NORMAL);
 
 		this.poofAtlas = new TextureAtlas(Gdx.files.internal("poofPack.atlas"));
-		this.poofAnimation = new Animation<TextureRegion>((1/5f), this.poofAtlas.getRegions(), Animation.PlayMode.NORMAL);
+		this.poofAnimation = new Animation<TextureRegion>((1/4f), this.poofAtlas.getRegions(), Animation.PlayMode.NORMAL);
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		this.music.play();
-		this.music.setVolume(0.1f);
+		this.themeMusic.play();
 
 		this.batch.setProjectionMatrix(this.camera.combined);
 		this.batch.begin();
@@ -102,9 +107,6 @@ public class Escape extends ApplicationAdapter {
 		movingAround(moveInput);
 
 		collisionDetection();
-
-		float x = this.dog.xPosition;
-		float y = this.dog.xPosition;
 
 		gameOverDetector(this.timePassed);
 
@@ -188,14 +190,16 @@ public class Escape extends ApplicationAdapter {
 
 	public void gameOverDetector(float timePassed) {
 		if (this.dog.xPosition > 1500) {
-			drawDeath(this.dogDeathX, this.dogDeathY);
+			drawDeath();
 			this.batch.draw(this.gameOverAnimation.getKeyFrame(timePassed, true), -250, -150, 500, 350);
+			this.themeMusic.stop();
+			this.deathMusic.play();
 			this.dog.xPosition = 1750;
 			this.dog.yPosition = 1750;
 		}
 	}
 
-	public void drawDeath(float x, float y) {
+	public void drawDeath() {
 		this.batch.draw(this.tombstoneAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
 		this.batch.draw(this.poofAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
 	}
@@ -205,7 +209,8 @@ public class Escape extends ApplicationAdapter {
 		this.batch.dispose();
 		this.background.dispose();
 		this.dog.atlas.dispose();
-		this.music.dispose();
+		this.themeMusic.dispose();
+		this.deathMusic.dispose();
 		this.gameOverAtlas.dispose();
 		this.dog.atlas.dispose();
 		this.golemOne.golemAtlas.dispose();
@@ -216,6 +221,8 @@ public class Escape extends ApplicationAdapter {
 		this.urchinTwo.atlas.dispose();
 		this.urchinThree.atlas.dispose();
 		this.urchinFour.atlas.dispose();
+		this.deathAtlas.dispose();
+		this.poofAtlas.dispose();
 	}
 
 	public void physicalMovement(int inputNum) {
