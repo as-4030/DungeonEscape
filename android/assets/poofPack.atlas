@@ -1,0 +1,62 @@
+
+poofPack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+poof0001
+  rotate: false
+  xy: 319, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0002
+  rotate: false
+  xy: 2, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0003
+  rotate: false
+  xy: 319, 2
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0004
+  rotate: false
+  xy: 2, 2
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0005
+  rotate: false
+  xy: 2, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0006
+  rotate: false
+  xy: 636, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0007
+  rotate: false
+  xy: 319, 634
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1
+poof0008
+  rotate: false
+  xy: 636, 318
+  size: 315, 314
+  orig: 315, 314
+  offset: 0, 0
+  index: -1

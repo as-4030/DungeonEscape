@@ -19,6 +19,8 @@ public class Escape extends ApplicationAdapter {
 	float timePassed = 0.0001f;
 
 	private Dog dog;
+	private Float dogDeathX;
+	private Float dogDeathY;
 
 	private Music music;
 
@@ -37,6 +39,12 @@ public class Escape extends ApplicationAdapter {
 
 	TextureAtlas gameOverAtlas;
 	Animation<TextureRegion> gameOverAnimation;
+
+	TextureAtlas deathAtlas;
+	Animation<TextureRegion> tombstoneAnimation;
+
+	TextureAtlas poofAtlas;
+	Animation<TextureRegion> poofAnimation;
 	
 	@Override
 	public void create() {
@@ -45,6 +53,8 @@ public class Escape extends ApplicationAdapter {
 		this.background = new Texture("background.jpg");
 
 		this.dog = new Dog(-400, -250);
+		this.dogDeathX = null;
+		this.dogDeathY = null;
 
 		this.golemOne = new Golem(340, -50);
 		this.golemTwo = new Golem(340, 100);
@@ -52,9 +62,9 @@ public class Escape extends ApplicationAdapter {
 		this.rockOne = new Rock(340, -50);
 		this.rockTwo = new Rock(340, 100);
 
-		this.urchinOne = new Urchin(0, 0);
-		this.urchinTwo = new Urchin(-200, -50);
-		this.urchinThree = new Urchin(375, 40);
+		this.urchinOne = new Urchin(-300, -300);
+		this.urchinTwo = new Urchin(-200, -200);
+		this.urchinThree = new Urchin(375, 200);
 		this.urchinFour = new Urchin(-250, 250);
 
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
@@ -62,6 +72,12 @@ public class Escape extends ApplicationAdapter {
 
 		this.gameOverAtlas = new TextureAtlas(Gdx.files.internal("gameOverPack.atlas"));
 		this.gameOverAnimation = new Animation<TextureRegion>((1/15f), this.gameOverAtlas.getRegions(), Animation.PlayMode.LOOP);
+
+		this.deathAtlas = new TextureAtlas(Gdx.files.internal("deathPack.atlas"));
+		this.tombstoneAnimation = new Animation<TextureRegion>((1/7f), this.deathAtlas.getRegions(), Animation.PlayMode.NORMAL);
+
+		this.poofAtlas = new TextureAtlas(Gdx.files.internal("poofPack.atlas"));
+		this.poofAnimation = new Animation<TextureRegion>((1/5f), this.poofAtlas.getRegions(), Animation.PlayMode.NORMAL);
 	}
 
 	@Override
@@ -86,6 +102,10 @@ public class Escape extends ApplicationAdapter {
 		movingAround(moveInput);
 
 		collisionDetection();
+
+		float x = this.dog.xPosition;
+		float y = this.dog.xPosition;
+
 		gameOverDetector(this.timePassed);
 
 		this.batch.end();
@@ -131,26 +151,36 @@ public class Escape extends ApplicationAdapter {
 
 	public void collisionDetection() {
 		if (((Math.abs(this.dog.yPosition - this.rockOne.rockY) < 35) || (Math.abs(this.dog.yPosition - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dog.xPosition - this.rockOne.rockX) < 8) || (Math.abs(this.dog.xPosition - this.rockTwo.rockX) < 8))) {
+			this.dogDeathX = this.dog.xPosition;
+			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
 			this.dog.yPosition = 2000;
 		}
 
 		if (((Math.abs(this.urchinOne.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinOne.yPosition) < 20))) {
+			this.dogDeathX = this.dog.xPosition;
+			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
 			this.dog.yPosition = 2000;
 		}
 
 		if (((Math.abs(this.urchinTwo.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinTwo.yPosition) < 20))) {
+			this.dogDeathX = this.dog.xPosition;
+			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
 			this.dog.yPosition = 2000;
 		}
 
 		if (((Math.abs(this.urchinThree.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinThree.yPosition) < 20))) {
+			this.dogDeathX = this.dog.xPosition;
+			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
 			this.dog.yPosition = 2000;
 		}
 
 		if (((Math.abs(this.urchinFour.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinFour.yPosition) < 20))) {
+			this.dogDeathX = this.dog.xPosition;
+			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
 			this.dog.yPosition = 2000;
 		}
@@ -158,10 +188,16 @@ public class Escape extends ApplicationAdapter {
 
 	public void gameOverDetector(float timePassed) {
 		if (this.dog.xPosition > 1500) {
+			drawDeath(this.dogDeathX, this.dogDeathY);
 			this.batch.draw(this.gameOverAnimation.getKeyFrame(timePassed, true), -250, -150, 500, 350);
 			this.dog.xPosition = 1750;
 			this.dog.yPosition = 1750;
 		}
+	}
+
+	public void drawDeath(float x, float y) {
+		this.batch.draw(this.tombstoneAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
+		this.batch.draw(this.poofAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
 	}
 	
 	@Override
