@@ -21,6 +21,8 @@ public class Escape extends ApplicationAdapter {
 	private Dog dog;
 	private Float dogDeathX;
 	private Float dogDeathY;
+	boolean lookingLeft = false;
+	boolean victory = false;
 
 	private Music themeMusic;
 	private Music deathMusic;
@@ -31,12 +33,12 @@ public class Escape extends ApplicationAdapter {
 	private Rock rockOne;
 	private Rock rockTwo;
 
-	boolean lookingLeft = false;
-
 	private Urchin urchinOne;
 	private Urchin urchinTwo;
 	private Urchin urchinThree;
 	private Urchin urchinFour;
+
+	private Ladder ladder;
 
 	TextureAtlas gameOverAtlas;
 	Animation<TextureRegion> gameOverAnimation;
@@ -46,6 +48,9 @@ public class Escape extends ApplicationAdapter {
 
 	TextureAtlas poofAtlas;
 	Animation<TextureRegion> poofAnimation;
+
+	TextureAtlas winnerAtlas;
+	Animation<TextureRegion> winnerAnimation;
 	
 	@Override
 	public void create() {
@@ -65,7 +70,7 @@ public class Escape extends ApplicationAdapter {
 
 		this.urchinOne = new Urchin(-300, -300);
 		this.urchinTwo = new Urchin(-200, -200);
-		this.urchinThree = new Urchin(375, 200);
+		this.urchinThree = new Urchin(0, 200);
 		this.urchinFour = new Urchin(-250, 250);
 
 		this.themeMusic = Gdx.audio.newMusic(Gdx.files.internal("thememusic.mp3"));
@@ -84,6 +89,11 @@ public class Escape extends ApplicationAdapter {
 
 		this.poofAtlas = new TextureAtlas(Gdx.files.internal("poofPack.atlas"));
 		this.poofAnimation = new Animation<TextureRegion>((1/4f), this.poofAtlas.getRegions(), Animation.PlayMode.NORMAL);
+
+		this.winnerAtlas = new TextureAtlas(Gdx.files.internal("winnerPack.atlas"));
+		this.winnerAnimation = new Animation<TextureRegion>((1/4f), this.winnerAtlas.getRegions(), Animation.PlayMode.LOOP);
+
+		this.ladder = new Ladder(380, 230);
 	}
 
 	@Override
@@ -101,6 +111,8 @@ public class Escape extends ApplicationAdapter {
 
 		this.batch.draw(this.background, -1100, -610);
 
+		this.batch.draw(this.ladder.getRegion(), this.ladder.xPosition, this.ladder.yPosition, 40, 60);
+
 		drawGolems();
 		drawUrchins();
 
@@ -109,6 +121,7 @@ public class Escape extends ApplicationAdapter {
 		collisionDetection();
 
 		gameOverDetector(this.timePassed);
+		victoryDetector(this.timePassed);
 
 		this.batch.end();
 	}
@@ -199,6 +212,16 @@ public class Escape extends ApplicationAdapter {
 		}
 	}
 
+	public void victoryDetector(float timePassed) {
+		if (Math.abs(this.dog.xPosition - this.ladder.xPosition) < 10 && Math.abs(this.dog.yPosition - this.ladder.yPosition) < 10) {
+			this.victory = true;
+		}
+
+		if (this.victory == true) {
+			this.batch.draw(this.winnerAnimation.getKeyFrame(timePassed, true), -200, -50, 400, 200);
+		}
+	}
+
 	public void drawDeath() {
 		this.batch.draw(this.tombstoneAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
 		this.batch.draw(this.poofAnimation.getKeyFrame(timePassed, false), this.dogDeathX, this.dogDeathY, 64, 59);
@@ -223,6 +246,9 @@ public class Escape extends ApplicationAdapter {
 		this.urchinFour.atlas.dispose();
 		this.deathAtlas.dispose();
 		this.poofAtlas.dispose();
+		this.ladder.atlas.dispose();
+		this.winnerAtlas.dispose();
+
 	}
 
 	public void physicalMovement(int inputNum) {

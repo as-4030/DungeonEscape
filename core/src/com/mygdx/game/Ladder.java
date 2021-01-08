@@ -1,25 +1,25 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Urchin {
+public class Ladder {
 
     TextureAtlas atlas;
-    TextureRegion urchin;
+    TextureRegion ladder;
 
     float xPosition;
     float yPosition;
 
-    public Urchin(float xPosition, float yPosition) {
-        this.atlas = new TextureAtlas("sittingStillObjects.atlas");
-        this.urchin = this.atlas.findRegion("urchin2");
+    public Ladder(float xPosition, float yPosition) {
+        this.atlas = new TextureAtlas(Gdx.files.internal("sittingStillObjects.atlas"));
+        this.ladder = this.atlas.findRegion("ladder");
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
 
     public TextureRegion getRegion() {
-        return this.urchin;
+        return this.ladder;
     }
-
 }
