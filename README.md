@@ -5,4 +5,6 @@ I made my initial commit kinda late into the game process, as I just finished le
 
 Let's go!
 
+(Sorry for the slow gif.)
+
 ![Gif of "completed" game as of 1/8/21.](https://i.imgur.com/KwCASmf.gif)
