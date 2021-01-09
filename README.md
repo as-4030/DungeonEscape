@@ -5,4 +5,4 @@ I made my initial commit kinda late into the game process, as I just finished le
 
 Let's go!
 
-![Picture as of 1/4/21.](https://raw.githubusercontent.com/as-4030/Dungeon_Escape/master/GameScreenshot.png)
+![Gif of "completed" game as of 1/8/21.](https://i.imgur.com/KwCASmf.gif)
