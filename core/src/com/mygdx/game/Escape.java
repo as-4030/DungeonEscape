@@ -123,6 +123,13 @@ public class Escape extends ApplicationAdapter {
 		gameOverDetector(this.timePassed);
 		victoryDetector(this.timePassed);
 
+		if (Gdx.input.isKeyPressed(Input.Keys.U)) {
+			System.out.println("Urchin X: " + this.urchinOne.xPosition);
+			System.out.println("Urchin Y: " + this.urchinOne.yPosition);
+			System.out.println("Dog X: " + this.dog.xPosition);
+			System.out.println("Dog Y: " + this.dog.yPosition);
+		}
+
 		this.batch.end();
 	}
 
@@ -165,35 +172,13 @@ public class Escape extends ApplicationAdapter {
 	}
 
 	public void collisionDetection() {
-		if (((Math.abs(this.dog.yPosition - this.rockOne.rockY) < 35) || (Math.abs(this.dog.yPosition - this.rockTwo.rockY) < 35)) && ((Math.abs(this.dog.xPosition - this.rockOne.rockX) < 8) || (Math.abs(this.dog.xPosition - this.rockTwo.rockX) < 8))) {
-			this.dogDeathX = this.dog.xPosition;
-			this.dogDeathY = this.dog.yPosition;
-			this.dog.xPosition = 2000;
-			this.dog.yPosition = 2000;
-		}
+		boolean withinRock = (Math.abs(this.dog.xPosition - this.rockOne.rockX) < 25) && (Math.abs(this.dog.yPosition - this.rockOne.rockY) < 25) || (Math.abs(this.dog.xPosition - this.rockTwo.rockX) < 25 && Math.abs(this.dog.yPosition - this.rockTwo.rockY) < 25);
+		boolean withinUrchin1 = ((((this.dog.xPosition - this.urchinOne.xPosition) < 40) && ((this.dog.xPosition - this.urchinOne.xPosition) > -15)) && (this.dog.yPosition - this.urchinOne.yPosition) < 30) && ((this.dog.yPosition - this.urchinOne.yPosition) > 0);
+		boolean withinUrchin2 = ((((this.dog.xPosition - this.urchinTwo.xPosition) < 40) && ((this.dog.xPosition - this.urchinTwo.xPosition) > -15)) && (this.dog.yPosition - this.urchinTwo.yPosition) < 30) && ((this.dog.yPosition - this.urchinTwo.yPosition) > 0);
+		boolean withinUrchin3 = ((((this.dog.xPosition - this.urchinThree.xPosition) < 40) && ((this.dog.xPosition - this.urchinThree.xPosition) > -15)) && (this.dog.yPosition - this.urchinThree.yPosition) < 30) && ((this.dog.yPosition - this.urchinThree.yPosition) > 0);
+		boolean withinUrchin4 = ((((this.dog.xPosition - this.urchinFour.xPosition) < 40) && ((this.dog.xPosition - this.urchinFour.xPosition) > -15)) && (this.dog.yPosition - this.urchinFour.yPosition) < 30) && ((this.dog.yPosition - this.urchinFour.yPosition) > 0);
 
-		if (((Math.abs(this.urchinOne.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinOne.yPosition) < 20))) {
-			this.dogDeathX = this.dog.xPosition;
-			this.dogDeathY = this.dog.yPosition;
-			this.dog.xPosition = 2000;
-			this.dog.yPosition = 2000;
-		}
-
-		if (((Math.abs(this.urchinTwo.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinTwo.yPosition) < 20))) {
-			this.dogDeathX = this.dog.xPosition;
-			this.dogDeathY = this.dog.yPosition;
-			this.dog.xPosition = 2000;
-			this.dog.yPosition = 2000;
-		}
-
-		if (((Math.abs(this.urchinThree.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinThree.yPosition) < 20))) {
-			this.dogDeathX = this.dog.xPosition;
-			this.dogDeathY = this.dog.yPosition;
-			this.dog.xPosition = 2000;
-			this.dog.yPosition = 2000;
-		}
-
-		if (((Math.abs(this.urchinFour.xPosition - this.dog.xPosition) < 20) && (Math.abs(this.dog.yPosition - this.urchinFour.yPosition) < 20))) {
+		if (withinRock || withinUrchin1 || withinUrchin2 || withinUrchin3 || withinUrchin4) {
 			this.dogDeathX = this.dog.xPosition;
 			this.dogDeathY = this.dog.yPosition;
 			this.dog.xPosition = 2000;
@@ -213,8 +198,10 @@ public class Escape extends ApplicationAdapter {
 	}
 
 	public void victoryDetector(float timePassed) {
-		if (Math.abs(this.dog.xPosition - this.ladder.xPosition) < 10 && Math.abs(this.dog.yPosition - this.ladder.yPosition) < 10) {
+		if (Math.abs(this.dog.xPosition - this.ladder.xPosition) < 50 && Math.abs(this.dog.yPosition - this.ladder.yPosition) < 50) {
 			this.victory = true;
+			this.dog.xPosition = -2500;
+			this.dog.yPosition = -2500;
 		}
 
 		if (this.victory == true) {
