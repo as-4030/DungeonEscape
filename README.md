@@ -8,5 +8,3 @@ Let's go!
 (Sorry for the slow gif.)
 
 ![Gif of "completed" game as of 1/8/21.](https://i.imgur.com/KwCASmf.gif)
-
-![Gif.](https://i.imgur.com/sM22Bjn.gif)
